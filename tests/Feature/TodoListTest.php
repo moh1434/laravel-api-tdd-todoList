@@ -10,8 +10,12 @@ class TodoListTest extends TestCase
 {
     public function test_example()
     {
-        $response = $this->get('/');
+        $this->withoutExceptionHandling();
 
-        $response->assertStatus(200);
+
+        $response = $this->getJson(route('todo-list.index'));
+
+
+        $this->assertEquals(1, count($response->json()));
     }
 }
