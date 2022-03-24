@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class TodoListTest extends TestCase
 {
-    public function test_store_todo_list()
+    public function test_fetch_todo_list()
     {
 
         $response = $this->getJson(route('todo-list.index'));
