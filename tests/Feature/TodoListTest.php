@@ -20,4 +20,17 @@ class TodoListTest extends TestCase
 
         $this->assertEquals(1, count($response->json()));
     }
+
+    public function test_fetch_single_todo_list()
+    {
+        // preparation
+        $list = TodoList::factory()->create();
+        // action
+        $response = $this->getJson(route('todo-list.show', $list->id))
+            ->assertStatus(200);
+
+        // assertion
+
+        $this->assertEquals($response->json()['name'], $list->name);
+    }
 }
