@@ -12,7 +12,6 @@ class TodoListController extends Controller
         $lists = TodoList::all();
         return response($lists);
     }
-    // TodoList $todoList
     public function show(TodoList $list)
     {
         return response($list);
