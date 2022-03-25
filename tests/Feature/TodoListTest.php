@@ -15,7 +15,7 @@ class TodoListTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->list = TodoList::factory()->create();
+        $this->list = TodoList::factory()->create(['name' => 'my list']);
     }
     public function test_fetch_todo_list()
     {
@@ -25,6 +25,7 @@ class TodoListTest extends TestCase
 
 
         $this->assertEquals(1, count($response->json()));
+        $this->assertEquals('my list', $response->json()[0]['name']);
     }
 
     public function test_fetch_single_todo_list()
