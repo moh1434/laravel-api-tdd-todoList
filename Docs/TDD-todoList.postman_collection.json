@@ -22,14 +22,8 @@
 					}
 				],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "my third list",
-							"type": "text"
-						}
-					]
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"my third list\"\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8000/api/todo-list/",
@@ -74,7 +68,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"edited third list\"\n}"
+					"raw": "{\n    \"name\":\"edited2 third list\"\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8000/api/todo-list/6",
@@ -107,7 +101,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/todo-list/1",
+					"raw": "http://127.0.0.1:8000/api/todo-list/6",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -119,7 +113,7 @@
 					"path": [
 						"api",
 						"todo-list",
-						"1"
+						"6"
 					]
 				}
 			},
