@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(TodoList $list)
     {
-        $tasks = Task::all();
+        $tasks = Task::where(['todo_list_id' => $list->id])->get();
         return $tasks;
     }
 
