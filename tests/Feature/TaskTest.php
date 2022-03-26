@@ -18,7 +18,7 @@ class TaskTest extends TestCase
      */
     public function test_fetch_all_tasks_of_a_todo_list()
     {
-        $task = Task::factory()->create();
+        $task = $this->createTask();
 
         $response = $this->getJson(route('task.index'))->assertStatus(200)->json();
 
@@ -37,7 +37,7 @@ class TaskTest extends TestCase
 
     public function test_delete_a_task_from_database()
     {
-        $task = Task::factory()->create();
+        $task = $this->createTask();
 
         $this->deleteJson(route('task.destroy', $task->id))
             ->assertStatus(Response::HTTP_NO_CONTENT);
