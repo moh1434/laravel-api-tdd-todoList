@@ -8,3 +8,6 @@ Route::apiResource('todo-list', TodoListController::class)->parameters(['todo-li
 
 Route::apiResource('todo-list.task', TaskController::class)->parameters(['todo-list' => 'list'])
     ->except('show')->shallow();
+
+
+Route::post('task/completed', []);
