@@ -28,6 +28,6 @@ class RegistrationTest extends TestCase
         $this->postJson(route('user.register'), [])->assertStatus(422)
             ->assertJsonValidationErrors(['name', 'email', 'password']);
 
-        $this->assertDatabaseMissing('users', ['name' => 'moh1434']);
+        $this->assertDatabaseCount('users', 0);
     }
 }
