@@ -20,4 +20,13 @@ class RegistrationTest extends TestCase
 
         $this->assertDatabaseHas('users', ['name' => 'moh1434']);
     }
+
+    public function test_while_registration_name_email_and_password_fields_are_required()
+    {
+        $this->withExceptionHandling();
+        $this->postJson(route('user.register'), [])->assertStatus(422)
+            ->assertJsonValidationErrors(['name', 'email', 'password']);
+
+        $this->assertDatabaseMissing('users', ['name' => 'moh1434']);
+    }
 }
