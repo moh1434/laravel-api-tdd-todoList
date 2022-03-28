@@ -15,7 +15,8 @@ class RegistrationTest extends TestCase
         $this->postJson(route('user.register'), [
             'name' => 'moh1434',
             'email' => 'moh1434.ma@gmail.com',
-            'password' => '12345678'
+            'password' => '12345678',
+            'password_confirmation' => '12345678'
         ])->assertCreated();
 
         $this->assertDatabaseHas('users', ['name' => 'moh1434']);
