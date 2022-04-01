@@ -20,12 +20,9 @@ class TodoListTest extends TestCase
         $this->authUser();
         $this->list = $this->createTodoList(['name' => 'my list']);
     }
-    public function test_fetch_todo_list()
+    public function test_fetch_all_todo_list()
     {
-
-
         $response = $this->getJson(route('todo-list.index'));
-
 
         $this->assertEquals(1, count($response->json()));
         $this->assertEquals('my list', $response->json()[0]['name']);
