@@ -22,6 +22,7 @@ class CreateTasksTable extends Migration
                 ->onDelete('cascade');
             $table->enum('status', [Task::STARTED, Task::PENDING, Task::NOT_STARTED])
                 ->default(Task::NOT_STARTED);
+            $table->text('description')->nullable();
             $table->string('title');
             $table->timestamps();
         });
