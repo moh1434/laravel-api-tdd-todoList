@@ -11,11 +11,11 @@ class LabelController extends Controller
 {
     public function index()
     {
-        return auth()->user()->label;
+        return auth()->user()->labels;
     }
     public function store(LabelRequest $request)
     {
-        return auth()->user()->label()->create($request->validated());
+        return auth()->user()->labels()->create($request->validated());
     }
 
     public function destroy(Label $label)
