@@ -19,4 +19,10 @@ class LabelController extends Controller
         $label->delete();
         return response('', Response::HTTP_NO_CONTENT);
     }
+
+    public function update(Label $label, LabelRequest $request)
+    {
+        $label->update($request->validated());
+        return response($label, Response::HTTP_OK);
+    }
 }

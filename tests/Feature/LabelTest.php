@@ -37,4 +37,18 @@ class LabelTest extends TestCase
             'title' => $label->title
         ]);
     }
+
+    public function test_user_can_update_label()
+    {
+        $label = $this->createLabel();
+
+        $this->patchJson(route('label.update', $label->id), [
+            'title' => $label->title,
+            'color' => 'new-color'
+        ])->assertOk();
+
+        $this->assertDatabaseHas('labels', [
+            'color' => 'new-color'
+        ]);
+    }
 }
