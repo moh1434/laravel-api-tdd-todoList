@@ -24,6 +24,7 @@ class CreateTasksTable extends Migration
                 ->default(Task::NOT_STARTED);
             $table->text('description')->nullable();
             $table->string('title');
+            $table->foreignId('label_id')->constrained();
             $table->timestamps();
         });
     }
