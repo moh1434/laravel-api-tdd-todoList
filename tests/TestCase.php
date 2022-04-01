@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Models\Label;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\TodoList;
@@ -36,5 +37,10 @@ abstract class TestCase extends BaseTestCase
         $user = $this->createUser($args);
         Sanctum::actingAs($user);
         return $user;
+    }
+
+    public function createLabel($args = [])
+    {
+        return Label::factory()->create($args);
     }
 }

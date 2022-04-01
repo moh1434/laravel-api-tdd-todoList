@@ -2,9 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Label;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LabelTest extends TestCase
 {
@@ -18,9 +19,11 @@ class LabelTest extends TestCase
 
     public function test_user_can_create_new_label()
     {
-        $this->postJson(route('label.store'), ['title' => 'my title', 'color' => 'red'])
+        $label = Label::factory()->raw();
+        $this->authUser();
+        $this->postJson(route('label.store'), $label)
             ->assertCreated();
 
-        $this->assertDatabaseHas('labels', ['title' => 'my title', 'color' => 'red']);
+        $this->assertDatabaseHas('labels', $label);
     }
 }
