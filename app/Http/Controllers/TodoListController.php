@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TodoListRequest;
+use auth;
 use App\Models\TodoList;
 use Illuminate\Http\Request;
+use App\Http\Requests\TodoListRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class TodoListController extends Controller
 {
     public function index()
     {
-        $lists = TodoList::all();
+        $lists = TodoList::where('user_id', auth()->id())->get();
         return response($lists);
     }
     public function show(TodoList $list)
