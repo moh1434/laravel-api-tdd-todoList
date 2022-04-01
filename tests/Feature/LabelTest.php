@@ -26,4 +26,15 @@ class LabelTest extends TestCase
 
         $this->assertDatabaseHas('labels', $label);
     }
+
+    public function test_user_can_delete_a_label()
+    {
+        $label = $this->createLabel();
+
+        $this->deleteJson(route('label.destroy', $label->id))->assertNoContent();
+
+        $this->assertDatabaseMissing('labels', [
+            'title' => $label->title
+        ]);
+    }
 }
