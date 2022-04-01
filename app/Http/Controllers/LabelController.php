@@ -9,9 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LabelController extends Controller
 {
+    public function index()
+    {
+        return auth()->user()->label;
+    }
     public function store(LabelRequest $request)
     {
-        return Label::create($request->validated());
+        return auth()->user()->label()->create($request->validated());
     }
 
     public function destroy(Label $label)

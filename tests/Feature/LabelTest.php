@@ -14,13 +14,13 @@ class LabelTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $user = $this->authUser();
+        $this->user = $this->authUser();
     }
 
     public function test_user_can_create_new_label()
     {
-        $label = Label::factory()->raw();
-        $this->authUser();
+
+        $label = Label::factory(['user_id' => $this->user])->raw();
         $this->postJson(route('label.store'), $label)
             ->assertCreated();
 
@@ -50,5 +50,15 @@ class LabelTest extends TestCase
         $this->assertDatabaseHas('labels', [
             'color' => 'new-color'
         ]);
+    }
+
+    public function test_fetch_all_label_for_user()
+    {
+        $label = $this->createLabel(['user_id' => $this->user->id]);
+        $this->createLabel();
+
+        $response = $this->getJson(route('label.index'))->assertOk()->json();
+
+        $this->assertEquals($response[0]['title'], $label->title);
     }
 }
