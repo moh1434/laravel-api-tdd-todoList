@@ -10,7 +10,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class TaskCompletedTest extends TestCase
 {
     use RefreshDatabase;
+    public function setUp(): void
+    {
+        parent::setUp();
 
+        $this->authUser();
+    }
     public function test_a_task_status_can_be_changed()
     {
         $task = $this->createTask();

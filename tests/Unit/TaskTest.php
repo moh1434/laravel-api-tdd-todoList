@@ -9,11 +9,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class TaskTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->authUser();
+    }
     public function test_task_belongs_to_a_todo_list()
     {
         $list = $this->createTodoList();

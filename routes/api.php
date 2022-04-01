@@ -6,10 +6,13 @@ use App\Http\Controllers\TodoListController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
-Route::apiResource('todo-list', TodoListController::class)->parameters(['todo-list' => 'list']);
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::apiResource('todo-list.task', TaskController::class)->parameters(['todo-list' => 'list'])
-    ->except('show')->shallow();
+    Route::apiResource('todo-list', TodoListController::class)->parameters(['todo-list' => 'list']);
+
+    Route::apiResource('todo-list.task', TaskController::class)->parameters(['todo-list' => 'list'])
+        ->except('show')->shallow();
+});
 
 
 Route::post('task/completed', []);
