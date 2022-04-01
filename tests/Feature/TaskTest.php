@@ -38,7 +38,7 @@ class TaskTest extends TestCase
         $list = $this->createTodoList();
         $task = Task::factory()->make();
 
-        $this->postJson(route('todo-list.task.store', $list->id), ['title' => $task->title])
+        $this->postJson(route('todo-list.task.store', $list->id), ['title' => $task->title, 'label_id' => $task->label_id])
             ->assertStatus(Response::HTTP_CREATED);
 
         $this->assertDatabaseHas('tasks', [
