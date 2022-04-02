@@ -51,9 +51,21 @@ class ServiceTest extends TestCase
 
         $this->assertDatabaseHas('services', [
             'user_id' => $this->user->id,
-            'token' => '{"access_token":"fake-token"}'
+            'token' => '"{\"access_token\":\"fake-token\"}"'
         ]);
 
         // $this->assertNotNull($this->user->services->first()->token);
+    }
+
+    public function test_data_of_a_week_can_be_stored_on_google_drive()
+    {
+        $this->mock(Client::class, function (MockInterface $mock) {
+            $mock->shouldReceive('setAccessToken')->once();
+            $mock->shouldReceive('getLogger->info')->once();
+            $mock->shouldReceive('shouldDefer')->once();
+            $mock->shouldReceive('execute')->once();
+        });
+        $service = $this->createService();
+        $this->postJson(route('service.store', $service->id))->assertCreated();
     }
 }

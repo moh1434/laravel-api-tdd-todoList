@@ -19,6 +19,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/service/connect/{service}', [ServiceController::class, 'connect'])->name('service.connect');
     Route::post('/service/callback', [ServiceController::class, 'callback'])->name('service.callback');
+
+    Route::post('/service/{service}', [ServiceController::class, 'store'])
+        ->name('service.store');
 });
 
 
