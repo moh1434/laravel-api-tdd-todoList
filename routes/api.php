@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\LabelController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TodoListController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\LabelController;
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -15,6 +16,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except('show')->shallow();
 
     Route::apiResource('label', LabelController::class);
+
+    Route::get('/service/connect/{service}', [ServiceController::class, 'connect'])->name('service.connect');
 });
 
 
