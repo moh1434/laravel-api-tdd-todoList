@@ -26,7 +26,8 @@ class TaskTest extends TestCase
         $task = $this->createTask(['todo_list_id' => $list->id]);
         $this->createTask(['todo_list_id' => $list2->id]);
 
-        $response = $this->getJson(route('todo-list.task.index', $list->id))->assertStatus(200)->json();
+        $response = $this->getJson(route('todo-list.task.index', $list->id))
+            ->assertStatus(200)->json();
 
         $this->assertEquals(1, count($response));
         $this->assertEquals($task->title, $response[0]['title']);
@@ -39,7 +40,10 @@ class TaskTest extends TestCase
         $task = Task::factory()->make();
         // $label = $this->createLabel();
 
-        $this->postJson(route('todo-list.task.store', $list->id), ['title' => $task->title, 'label_id' => $task->label_id])
+        $this->postJson(route('todo-list.task.store', $list->id), [
+            'title' => $task->title,
+            'label_id' => $task->label_id
+        ])
             ->assertStatus(Response::HTTP_CREATED);
 
         $this->assertDatabaseHas('tasks', [
@@ -55,7 +59,9 @@ class TaskTest extends TestCase
         $task = Task::factory(['label_id' => null])->make();
         // $label = $this->createLabel();
 
-        $this->postJson(route('todo-list.task.store', $list->id), ['title' => $task->title])
+        $this->postJson(route('todo-list.task.store', $list->id), [
+            'title' => $task->title
+        ])
             ->assertStatus(Response::HTTP_CREATED);
 
         $this->assertDatabaseHas('tasks', [
@@ -72,14 +78,18 @@ class TaskTest extends TestCase
         $this->deleteJson(route('task.destroy', $task->id))
             ->assertStatus(Response::HTTP_NO_CONTENT);
 
-        $this->assertDatabaseMissing('tasks', ['title' => $task->title]);
+        $this->assertDatabaseMissing('tasks', [
+            'title' => $task->title
+        ]);
     }
 
     public function test_update_a_task_of_a_todo_list()
     {
         $task = $this->createTask();
 
-        $response = $this->patchJson(route('task.update', $task->id), ['title' => 'updated title'])
+        $response = $this->patchJson(route('task.update', $task->id), [
+            'title' => 'updated title'
+        ])
             ->assertStatus(200)->json();
         $this->assertDatabaseHas('tasks', ['title' => 'updated title']);
     }
