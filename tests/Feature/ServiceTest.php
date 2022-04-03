@@ -59,13 +59,24 @@ class ServiceTest extends TestCase
 
     public function test_data_of_a_week_can_be_stored_on_google_drive()
     {
+        $this->createTask(['created_at' => now()->subDays(2)]);
+        $this->createTask(['created_at' => now()->subDays(3)]);
+        $this->createTask(['created_at' => now()->subDays(4)]);
+        $this->createTask(['created_at' => now()->subDays(6)]);
+
+        $this->createTask(['created_at' => now()->subDays(10)]);
+        //
+
         $this->mock(Client::class, function (MockInterface $mock) {
             $mock->shouldReceive('setAccessToken')->once();
             $mock->shouldReceive('getLogger->info')->once();
             $mock->shouldReceive('shouldDefer')->once();
             $mock->shouldReceive('execute')->once();
         });
+
         $service = $this->createService();
-        $this->postJson(route('service.store', $service->id))->assertCreated();
+
+        $this->postJson(route('service.store', $service->id))
+            ->assertCreated();
     }
 }
