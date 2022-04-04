@@ -61,8 +61,8 @@ class ServiceController extends Controller
         }
         $zip->close();
 
-
-        $access_token = $service->token['access_token'];
+        $token = json_decode($service->token, true);
+        $access_token = $token['access_token']['access_token'];
 
         $client->setAccessToken($access_token);
 
