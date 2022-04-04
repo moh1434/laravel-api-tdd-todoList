@@ -70,7 +70,7 @@ class ServiceController extends Controller
         $service = new Drive($client);
         $file = new DriveFile();
 
-        $file->setName("Hello World!");
+        $file->setName("Hello_World.zip");
         $result2 = $service->files->create(
             $file,
             array(
