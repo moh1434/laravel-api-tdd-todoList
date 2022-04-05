@@ -22,7 +22,7 @@ class GoogleDrive
         $service = new Drive($this->client);
         $file = new DriveFile();
 
-        $file->setName("Hello_World.zip");
+        $file->setName("tasksBackup.zip");
         $service->files->create(
             $file,
             array(
