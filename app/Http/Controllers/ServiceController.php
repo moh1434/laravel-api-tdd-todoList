@@ -76,6 +76,7 @@ class ServiceController extends Controller
                 'uploadType' => 'multipart'
             )
         );
+        Storage::deleteDirectory('public/temp');
 
         return response('Uploaded', Response::HTTP_CREATED);
     }
