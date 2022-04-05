@@ -36,9 +36,7 @@ class ServiceController extends Controller
 
         $service = Service::create([
             'user_id' => auth()->id(),
-            'token' => json_encode([
-                'access_token' => $access_token
-            ]),
+            'token' => $access_token,
             'name' => 'google-drive'
         ]);
 
@@ -61,10 +59,8 @@ class ServiceController extends Controller
         }
         $zip->close();
 
-        $token = json_decode($service->token, true);
-        $access_token = $token['access_token']['access_token'];
 
-        $client->setAccessToken($access_token);
+        $client->setAccessToken($service->token['access_token']);
 
 
         $service = new Drive($client);

@@ -44,14 +44,14 @@ class ServiceTest extends TestCase
             // $mock->shouldReceive('setRedirectUri')->once();
             $mock->shouldReceive('fetchAccessTokenWithAuthCode')
                 ->once()
-                ->andReturn('fake-token');
+                ->andReturn(['access_token' => 'fake-token']);
         });
         $response = $this->postJson(route('service.callback'), ['code' => 'Dummy code'])
             ->assertCreated();
 
         $this->assertDatabaseHas('services', [
             'user_id' => $this->user->id,
-            'token' => '"{\"access_token\":\"fake-token\"}"'
+            'token' => json_encode(['access_token' => 'fake-token'])
         ]);
 
         // $this->assertNotNull($this->user->services->first()->token);
