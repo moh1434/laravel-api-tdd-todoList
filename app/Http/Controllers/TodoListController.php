@@ -6,6 +6,7 @@ use auth;
 use App\Models\TodoList;
 use Illuminate\Http\Request;
 use App\Http\Requests\TodoListRequest;
+use App\Http\Resources\TodoListResource;
 use Symfony\Component\HttpFoundation\Response;
 
 class TodoListController extends Controller
@@ -13,23 +14,25 @@ class TodoListController extends Controller
     public function index()
     {
         $lists = auth()->user()->todo_lists;
-        return response($lists);
+        return TodoListResource::collection($lists);
     }
     public function show(TodoList $list)
     {
-        return response($list);
+        return new TodoListResource($list);
     }
 
     public function store(TodoListRequest $request)
     {
-        return auth()->user()
+        $list = auth()->user()
             ->todo_lists()
             ->create($request->validated());
+
+        return new TodoListResource($list);
     }
     public function update(TodoListRequest $request, TodoList $list)
     {
         $list->update($request->all());
-        return $list;
+        return new TodoListResource($list);;
     }
 
     public function destroy(TodoList $list)

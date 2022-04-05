@@ -26,21 +26,22 @@ class TodoListTest extends TestCase
     public function test_fetch_all_todo_list_for_authenticated_user()
     {
         $this->createTodoList();
-        $response = $this->getJson(route('todo-list.index'));
+        $response = $this->getJson(route('todo-list.index'))->json('data');
 
-        $this->assertEquals(1, count($response->json()));
-        $this->assertEquals('my list', $response->json()[0]['name']);
+        $this->assertEquals(1, count($response));
+        $this->assertEquals('my list', $response[0]['name']);
     }
 
     public function test_fetch_single_todo_list()
     {
         // action
         $response = $this->getJson(route('todo-list.show', $this->list->id))
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->json('data');
 
         // assertion
 
-        $this->assertEquals($response->json()['name'], $this->list->name);
+        $this->assertEquals($response['name'], $this->list->name);
     }
 
     public function test_store_new_todo_list()
@@ -48,7 +49,7 @@ class TodoListTest extends TestCase
         $list = TodoList::factory()->make(['name' => 'my list in db']);
         $response = $this->postJson(route('todo-list.store'), ['name' => $list->name])
             ->assertStatus(201)
-            ->json();
+            ->json('data');
 
         $this->assertEquals('my list in db', $response['name']);
 
