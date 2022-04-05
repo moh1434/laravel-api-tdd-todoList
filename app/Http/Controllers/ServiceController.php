@@ -55,7 +55,7 @@ class ServiceController extends Controller
 
         if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
             $filePath = storage_path('app/public/temp/') . $jsonFileName;
-            $zip->addFile($filePath);
+            $zip->addFile($filePath, $jsonFileName);
         }
         $zip->close();
 
