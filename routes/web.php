@@ -38,6 +38,8 @@ Route::get('drive', function () {
 
 
 Route::get('/google-drive/callback', function () {
+    return Request('code');
+
     $client = new Client;
     $client->setClientId('443633211637-pk474jnmm4pa3dlji1hhi7bgaevtu68q.apps.googleusercontent.com');
     $client->setClientSecret('5MqXkjuOmYafJOFZQovPzA9M');
