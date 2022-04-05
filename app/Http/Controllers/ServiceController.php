@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TaskResource;
 use Google\Client;
 use App\Models\Task;
 use App\Models\Service;
@@ -48,7 +49,7 @@ class ServiceController extends Controller
             ->get();
 
         $jsonFileName = 'task_dump.json';
-        Storage::put("/public/temp/$jsonFileName", $tasks->toJson());
+        Storage::put("/public/temp/$jsonFileName", TaskResource::collection($tasks)->toJson());
 
         $zip = new ZipArchive();
         $zipFileName = storage_path('app/public/temp/' . now()->timestamp . '-task.zip');

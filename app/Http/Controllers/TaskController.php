@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\TodoList;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
+use App\Http\Resources\TaskResource;
 use Symfony\Component\HttpFoundation\Response;
 
 class TaskController extends Controller
@@ -13,13 +14,13 @@ class TaskController extends Controller
     public function index(TodoList $list)
     {
         $tasks = $list->tasks;
-        return response($tasks);
+        return TaskResource::collection($tasks);
     }
 
     public function store(TaskRequest $request, TodoList $list)
     {
         $task = $list->tasks()->create($request->validated());
-        return $task;
+        return new TaskResource($task);
     }
 
     public function destroy(Task $task)
@@ -31,6 +32,6 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         $task->update($request->all());
-        return response($task);
+        return new TaskResource($task);
     }
 }
