@@ -6,4 +6,4 @@ It lets the user:\
 4- Verify its email (with twilio service).\
 All this features are powered by automation test.\
  
-Note: this project is based on Laravel API (not web routes) and you have postman collection in './Docs/' folder.
+Note: this project is based on Laravel8 API (not web routes) and you have postman collection in './Docs/' folder.
