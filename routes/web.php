@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Google\Client;
 use Google\Service\Drive;
 use Google\Service\Drive\DriveFile;
@@ -19,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/email/verify', function (Request $request) {
+
+    return "now, front-end should make api request to: api/email/verify?token=$request->token";
+});
+
 
 
 Route::get('drive', function () {

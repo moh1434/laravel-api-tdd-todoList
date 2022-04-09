@@ -34,6 +34,11 @@ return [
         'id' => env('GOOGLE_CLIENT_ID'),
         'secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect_url' => env('GOOGLE_REDIRECT_URL'),
+    ],
+    'twilio' => [
+        'account_sid' => env('TWILIO_ACCOUNT_SID'),
+        'verify_sid' => env('TWILIO_VERIFY_SID'),
+        'auth_token' => env('TWILIO_AUTH_TOKEN'),
     ]
 
 ];

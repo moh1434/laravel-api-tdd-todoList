@@ -2,7 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\App;
+
+use Illuminate\Support\Facades\Auth;
+use Twilio\Rest\Client as TwilioClient;
+
 use App\Models\TodoList;
+use App\Services\TwilioService;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -10,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -56,5 +62,11 @@ class User extends Authenticatable
     public function labels(): HasMany
     {
         return $this->hasMany(Label::class);
+    }
+
+
+    public function sendEmailVerificationNotification()
+    {
+        App::make(TwilioService::class)->sendEmailVerificationNotification();
     }
 }
